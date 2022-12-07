@@ -27,7 +27,7 @@ func GetAllocs(pid uint32) (*map[uintptr]*Alloc, error) {
 		var ma Alloc
 		ma.Addr = p
 
-		switch a.Protect {
+		switch a.Type {
 		case MEM_IMAGE:
 			ma.AllocType = "Image"
 		case MEM_MAPPED:
@@ -38,6 +38,7 @@ func GetAllocs(pid uint32) (*map[uintptr]*Alloc, error) {
 
 		ma.Protection = protectDwordToString(a.Protect)
 		ma.Size = uint32(a.RegionSize)
+
 		allocs[p] = &ma
 	}
 
